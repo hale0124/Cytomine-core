@@ -34,6 +34,9 @@ class User extends SecUser {
 
     @RestApiObjectField(description = "The lastname of the user")
     String lastname
+    
+    @RestApiObjectField(description = "The lifetime of the user")
+    String lifetime
 
     @RestApiObjectField(description = "The email of the user")
     String email
@@ -54,6 +57,7 @@ class User extends SecUser {
     static constraints = {
         firstname blank: false
         lastname blank: false
+        lifetime blank: false
         language(nullable: true)
         email(blank: false, email: true)
         color(blank: false, nullable: true)
@@ -108,6 +112,7 @@ class User extends SecUser {
         domain.username = JSONUtils.getJSONAttrStr(json,'username')
         domain.firstname = JSONUtils.getJSONAttrStr(json,'firstname')
         domain.lastname = JSONUtils.getJSONAttrStr(json,'lastname')
+        domain.lifetime = JSONUtils.getJSONAttrStr(json,'lifetime')        
         domain.email = JSONUtils.getJSONAttrStr(json,'email')
         domain.color = JSONUtils.getJSONAttrStr(json,'color')
         domain.language = Language.findByCode(JSONUtils.getJSONAttrStr(json,'language') ?: "EN")
@@ -137,6 +142,7 @@ class User extends SecUser {
         def returnArray = SecUser.getDataFromDomain(domain)
         returnArray['firstname'] = domain?.firstname
         returnArray['lastname'] = domain?.lastname
+        returnArray['lifetime'] = domain?.lifetime        
         returnArray['email'] = domain?.email
         returnArray['language'] = domain?.language.toString()
         if (!(domain?.springSecurityService?.principal instanceof String) && domain?.id == domain?.springSecurityService?.currentUser?.id) {
