@@ -57,7 +57,7 @@ class User extends SecUser {
     static constraints = {
         firstname blank: false
         lastname blank: false
-        lifetime blank: false
+        lifetime(nullable: true)
         language(nullable: true)
         email(blank: false, email: true)
         color(blank: false, nullable: true)
@@ -111,10 +111,10 @@ class User extends SecUser {
         domain.id = JSONUtils.getJSONAttrLong(json,'id',null)
         domain.username = JSONUtils.getJSONAttrStr(json,'username')
         domain.firstname = JSONUtils.getJSONAttrStr(json,'firstname')
-        domain.lastname = JSONUtils.getJSONAttrStr(json,'lastname')
-        domain.lifetime = JSONUtils.getJSONAttrStr(json,'lifetime')        
+        domain.lastname = JSONUtils.getJSONAttrStr(json,'lastname')   
         domain.email = JSONUtils.getJSONAttrStr(json,'email')
         domain.color = JSONUtils.getJSONAttrStr(json,'color')
+        domain.lifetime = Language.findByCode(JSONUtils.getJSONAttrStr(json,'lifetime') ?: 0)
         domain.language = Language.findByCode(JSONUtils.getJSONAttrStr(json,'language') ?: "EN")
         if(!domain.language) domain.language = Language.valueOf(JSONUtils.getJSONAttrStr(json,'language') ?: "EN")
         domain.origin = JSONUtils.getJSONAttrStr(json,'origin')
