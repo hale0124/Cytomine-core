@@ -114,7 +114,7 @@ class User extends SecUser {
         domain.lastname = JSONUtils.getJSONAttrStr(json,'lastname')   
         domain.email = JSONUtils.getJSONAttrStr(json,'email')
         domain.color = JSONUtils.getJSONAttrStr(json,'color')
-        domain.lifetime = Language.findByCode(JSONUtils.getJSONAttrStr(json,'lifetime') ?: 0)
+        domain.lifetime = JSONUtils.getJSONAttrStr(json,'lifetime') ?: 0
         domain.language = Language.findByCode(JSONUtils.getJSONAttrStr(json,'language') ?: "EN")
         if(!domain.language) domain.language = Language.valueOf(JSONUtils.getJSONAttrStr(json,'language') ?: "EN")
         domain.origin = JSONUtils.getJSONAttrStr(json,'origin')
